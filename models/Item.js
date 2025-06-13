@@ -13,7 +13,19 @@ const itemSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  flagCount: {
+    type: Number,
+    default: 0
+  },
+  flaggedBy: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+
   createdAt: { type: Date, default: Date.now }
 });
+
+
+
 
 module.exports = mongoose.model('Item', itemSchema);

@@ -1,12 +1,10 @@
 <%- include('../partials/header') %>
 
-<section class="home-container cards page-style">
+<section class="home-container page-style">
   <div class="container">
 
     <div class="text-center">
       
-      <h2>Browse Donations</h2>
-
       <!-- <form method="GET" action="/browse" class="d-flex justify-content-center g-5">
         <select name="category">
           <option value="">All Categories</option>
@@ -20,9 +18,13 @@
 
       <h2>Browse Donations</h2>
 
-      <form method="GET" action="/browse" style="margin-bottom: 20px;">
+      <form method="GET" action="/browse" class="d-flex justify-content-center g-5">
+        <div class="input-wrapper" style="margin-bottom: 0;">
         <input type="text" name="keyword" placeholder="Search keyword" value="<%= typeof keyword !== 'undefined' ? keyword : '' %>" />
+        </div>
+        <div class="input-wrapper" style="margin-bottom: 0;">
         <input type="text" name="location" placeholder="Location" value="<%= typeof location !== 'undefined' ? location : '' %>" />
+        </div>
         <select name="category">
           <option value="">All Categories</option>
           <option value="clothes">Clothes</option>
@@ -30,36 +32,51 @@
           <option value="furniture">Furniture</option>
           <option value="food">Food</option>
         </select>
-        <button type="submit">Search</button>
+        <button type="submit" class="button-style">Search</button>
       </form>
 
     </div>
 
     <% if (items.length === 0) { %>
-    <p class="text-center">No items found.</p>
-    <% } %> <% items.forEach(item => { %>
-    <div class="outer">
-      <div class="inner">
-        <% if (item.image) { %>
-        <img src="/uploads/<%= item.image %>" alt="item" />
-        <% } %>
+      <p class="text-center">No items found.</p>
+    <% }else{ %> 
+      <p>Found items: <%= items.length %></p>
+    <% } %> 
 
-        <h3><%= item.title %></h3>
-        <p><%= item.description %></p>
-        <ul>
-          <li>Category: <%= item.category %></li>
-          <li>Location: <%= item.location %></li>
-          <li>Donor: <%= item.donor.name %> | <%= item.donor.city %></li>
-          <li>Contact: <%= item.donor.email %></li>
-        </ul>
-        <% if (user && user.role === 'recipient') { %>
-        <form class="text-center" method="POST" action="/request/<%= item._id %>">
-          <button class="button-style" type="submit">Request Item</button>
-        </form>
-        <% } %>
+    <div class="cards">      
+      <% items.forEach(item => { %>
+      <div class="outer">
+        <div class="inner">
+          <% if (item.image) { %>
+          <img src="/uploads/<%= item.image %>" alt="item" />
+          <% } %>
+
+          <h3><%= item.title %></h3>
+          <p><%= item.description %></p>
+          <ul>
+            <li>Category: <%= item.category %></li>
+            <li>Location: <%= item.location %></li>
+            <li>Donor: <%= item.donor.name %> | <%= item.donor.city %></li>
+            <li>Contact: <a href="mailto:<%= item.donor.email %>"><%= item.donor.email %></a></li>
+          </ul>
+          <% if (user && user.role === 'recipient') { %>
+
+        <div class="d-flex justify-content-center" style="gap: 5px;">
+          <form class="text-center" method="POST" action="/request/<%= item._id %>">
+            <button class="button-style" type="submit">Request Item</button>
+          </form>
+
+          <form method="POST" action="/flag/<%= item._id %>" onsubmit="return confirm('Report this item as inappropriate?');">
+            <button class="button-style" style="background-color: crimson; color:white;">Flag</button>
+          </form>
+        </div>
+
+          <% } %>
+        </div>
       </div>
+      <% }) %>
     </div>
-    <% }) %>
+
   </div>
 </section>
 

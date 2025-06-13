@@ -38,6 +38,16 @@ select {
 	display: flex;
 	flex-wrap: wrap;
 }
+.col-4 {
+  width: 31.33%;
+  
+}
+.card {
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.02);
+}
 .col-6{
 	width: 50%;
 }
@@ -100,9 +110,11 @@ header {
 }
 /* home page */
 .home-container {
+	padding-top: 20px;
+}
+.cards{	
 	display: flex;
 	flex-wrap: wrap;
-	padding-top: 20px;
 }
 .cards img {
   width: 100%;

@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+
+<div class="container" style="margin-bottom: 50px;">
+
+    <h2 class="text-center">Notifications</h2>
+
+    <% if (notes.length === 0) { %>
+    <p class="text-center">No notifications.</p>
+    <% } else { %>
+        <div class="row g-5">
+        <% notes.forEach(note => { %>
+            <div class="card">
+            <p><%= note.message %></p>
+            <p><small><%= note.createdAt.toLocaleString() %></small></p>
+            <% if (!note.read) { %>
+                <form method="POST" action="/notifications/mark-read/<%= note._id %>">
+                <button class="button-style">Mark as Read</button>
+                </form>
+            <% } %>
+            </div>
+        <% }) %>
+        </div>
+    <% } %>
+
+</div>
+
+<%- include('../partials/footer') %>

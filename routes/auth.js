@@ -55,6 +55,28 @@ router.get('/logout', (req, res) => {
 });
 
 
+router.get('/profile/edit', (req, res) => {
+  if (!req.session.user) return res.redirect('/login');
+  res.render('pages/edit-profile', { user: req.session.user });
+});
+
+router.post('/profile/edit', async (req, res) => {
+  const { name, city } = req.body;
+  const userId = req.session.user._id;
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(userId, {
+      name,
+      city
+    }, { new: true });
+
+    // Update session
+    req.session.user = updatedUser;
+    res.redirect('/');
+  } catch (err) {
+    res.status(500).send('Profile update failed.');
+  }
+});
 
 
 

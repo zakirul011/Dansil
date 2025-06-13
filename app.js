@@ -35,6 +35,29 @@ app.use((req, res, next) => {
 });
 
 
+// notification
+const Notification = require('./models/Notification');
+
+app.use(async (req, res, next) => {
+  if (req.session.user) {
+    const notifications = await Notification.find({
+      user: req.session.user._id,
+      read: false
+    }).sort({ createdAt: -1 });
+
+    res.locals.user = req.session.user;
+    res.locals.notifications = notifications;
+  } else {
+    res.locals.user = null;
+    res.locals.notifications = [];
+  }
+
+  next();
+});
+
+
+
+
 // Routes
 const authRoutes = require('./routes/auth');
 app.use('/', authRoutes);
@@ -51,6 +74,9 @@ app.use('/', itemRoutes);
 
 // Make /uploads public
 app.use('/uploads', express.static('uploads'));
+
+
+
 
 
 // Server

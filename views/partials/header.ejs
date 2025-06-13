@@ -15,19 +15,19 @@
       </div>
       <div>
         <a class="button-style" href="/">Home</a>
-        <!-- <a class="button-style" href="post.html">Post</a>
-        <a class="button-style" href="/login">Login</a>
-        <a class="button-style" href="signup.html">Add Man</a>
-        <a class="button-style" href="user.html">Managers</a>
-        <a class="button-style" href="error.html">Error</a>
-        <button class="button-style">Logout</button> -->
 
         <% if (user) { %>
+          <% if (notifications) { %>
+          <a class="button-style" href="/notifications">notifications (<%= notifications.length %>)</a>
+          <% } %>
+
+          <a href="/profile/edit" class="button-style">Edit Profile</a>
           <a class="button-style" href="/logout">Logout</a>
         <% } else { %>
           <a class="button-style" href="/register">Register</a> 
           <a class="button-style" href="/login">Login</a>
         <% } %>
+
 
       </div>
     </header>

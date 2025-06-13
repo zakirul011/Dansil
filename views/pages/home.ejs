@@ -30,7 +30,7 @@
 <% } %>
 
 
-<% if (user && user.role === 'donor') { %>
+<% if (user && (user.role === 'donor' || user.role === 'admin')) { %>
   <a class="button-style" href="/my-donations">My Donations</a>
   <a class="button-style" href="/received-requests">Received Requests</a>
 <% } %>

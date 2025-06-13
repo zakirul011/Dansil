@@ -11,7 +11,8 @@
     <% } %>
   </div>
     
-
+<div class="cards">
+  
   <% items.forEach(item => { %>
     <div class="outer">
       <div class="inner">
@@ -22,8 +23,20 @@
         <ul>
           <li><%= item.description %></li>
           <li>Category: <%= item.category %></li>
-          <li>Status: <%= item.status %></li>
+          <li>Location: <%= item.location %></li>
+          <li><strong>Status:</strong> 
+            <% if (item.status === 'available') { %>
+              <span style="color:green;">Available</span>
+            <% } else if (item.status === 'requested') { %>
+              <span style="color:orange;">Requested</span>
+            <% } else if (item.status === 'accepted') { %>
+              <span style="color:blue;">Accepted</span>
+            <% } %>
+          </>
         </ul>
+        <% if (item.requestedBy) { %>
+          <p><strong>Requested By:</strong> <%= item.requestedBy.name %> (<%= item.requestedBy.email %>)</p>
+        <% } %>
 
         <div class="text-center">
           <form method="GET" action="/donate/edit/<%= item._id %>" style="display:inline;">
@@ -38,6 +51,8 @@
       </div>
     </div>
   <% }) %>
+
+</div>
 
   </div>
 

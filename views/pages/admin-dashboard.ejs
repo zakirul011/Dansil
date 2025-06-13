@@ -8,8 +8,9 @@
     </div>
     
     <h3 class="text-center" style="margin-top: 50px;">Users</h3>
+    <div class="row g-5">      
     <% users.forEach(user => { %>
-      <div style="margin:10px 0; border:1px solid #ccc; padding:10px;">
+      <div class="card col-4">
         <p><strong>Name:</strong> <%= user.name %></p>
         <p><strong>Email:</strong> <%= user.email %></p>
         <p><strong>Role:</strong> <%= user.role %></p>
@@ -22,16 +23,18 @@
             <button type="submit" class="button-style">Approve</button>
           </form>
           <form action="/admin/user/reject/<%= user._id %>" method="POST" style="display:inline;">
-            <button type="submit" class="button-style">Reject</button>
+            <button type="submit" class="button-style" style="background-color: crimson;">Reject</button>
           </form>
-        <% } %>
+        <% } %> 
       </div>
     <% }) %>
+    </div>
 
 
     <h3 class="text-center" style="margin-top: 50px;">Donation Items</h3>
+    <div class="row g-5">
     <% items.forEach(item => { %>
-      <div style="margin:10px 0; border:1px solid #ccc; padding:10px;">
+      <div class="card col-4">
         <p><strong>Title:</strong> <%= item.title %></p>
         <p><strong>Status:</strong> <%= item.status %></p>
         <p><strong>Approved:</strong> 
@@ -43,11 +46,32 @@
             <button type="submit" class="button-style">Approve</button>
           </form>
           <form action="/admin/item/reject/<%= item._id %>" method="POST" style="display:inline;">
-            <button type="submit" class="button-style">Reject</button>
+            <button type="submit" class="button-style" style="background-color: crimson;">Reject</button>
           </form>
         <% } %>
       </div>
-    <% }) %>
+    <% }) %>      
+    </div>
+
+    <h3 style="margin-top: 50px;">Flagged Items</h3>
+    <% if (flaggedItems.length === 0) { %>
+      <p style="margin-bottom: 50px;">No flagged items.</p>
+    <% } else { %>
+      <div class="row g-5" style="margin-bottom: 50px;">
+        <% flaggedItems.forEach(item => { %>
+          <div class="card col-4">
+            <p><strong>Title:</strong> <%= item.title %></p>
+            <p><strong>Donor:</strong> <%= item.donor?.name || 'Unknown' %></p>
+            <p><strong>Flags:</strong> <%= item.flagCount %></p>
+
+            <form method="POST" action="/admin/item/reject/<%= item._id %>">
+              <button class="button-style" style="background-color: crimson;">Delete Item</button>
+            </form>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+
 
   </div>
 </div>

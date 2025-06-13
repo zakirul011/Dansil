@@ -38,23 +38,17 @@ router.post('/donate', requireLogin, upload.single('image'), async (req, res) =>
 
 // Show my donations
 router.get('/my-donations', requireLogin, async (req, res) => {
-  const items = await Item.find({ donor: req.session.user._id });
+  if (req.session.user.role !== 'donor' && req.session.user.role !== 'admin') return res.send('Access denied.');
+
+  const items = await Item.find({ donor: req.session.user._id })
+    .populate('requestedBy');
+
   res.render('pages/my-donations', { items });
 });
 
 
+
 // Browse all available items
-router.get('/browse', async (req, res) => {
-  const category = req.query.category;
-  const filter = { status: 'available' };
-  if (category) filter.category = category;
-
-  // const items = await Item.find(filter).populate('donor');
-  const items = await Item.find({ status: 'available', isApproved: true }).populate('donor');
-
-  res.render('pages/browse', { items, user: req.session.user });
-});
-
 router.get('/browse', async (req, res) => {
   const { category, keyword, location } = req.query;
   const filter = { status: 'available', isApproved: true };
@@ -75,25 +69,29 @@ router.get('/browse', async (req, res) => {
 
 
 // Request item
+const Notification = require('../models/Notification');
+
 router.post('/request/:id', requireLogin, async (req, res) => {
-  const itemId = req.params.id;
-  try {
-    const item = await Item.findById(itemId);
-    if (!item) return res.send('Item not found');
+  const item = await Item.findById(req.params.id);
 
-    if (req.session.user.role !== 'recipient') {
-      return res.send('Only recipients can request items');
-    }
-
-    item.status = 'requested';
-    item.requestedBy = req.session.user._id;
-    await item.save();
-
-    res.redirect('/browse');
-  } catch (err) {
-    res.status(500).send('Error requesting item');
+  if (!item || req.session.user.role !== 'recipient') {
+    return res.send('Invalid request');
   }
+
+  item.status = 'requested';
+  item.requestedBy = req.session.user._id;
+  await item.save();
+
+  // Notify donor
+  const message = `${req.session.user.name} has requested your item "${item.title}".`;
+  await Notification.create({
+    user: item.donor,
+    message
+  });
+
+  res.redirect('/browse');
 });
+
 
 // Show recipient's requested items
 router.get('/my-requests', requireLogin, async (req, res) => {
@@ -107,7 +105,7 @@ router.get('/my-requests', requireLogin, async (req, res) => {
 
 // Donor: view received requests
 router.get('/received-requests', requireLogin, async (req, res) => {
-  if (req.session.user.role !== 'donor') {
+  if (req.session.user.role !== 'donor' && req.session.user.role !== 'admin') {
     return res.send('Only donors can view this page.');
   }
 
@@ -120,14 +118,25 @@ router.get('/received-requests', requireLogin, async (req, res) => {
 // Accept request
 router.post('/accept/:id', requireLogin, async (req, res) => {
   const item = await Item.findById(req.params.id);
+
   if (item.donor.toString() !== req.session.user._id.toString()) {
     return res.send('Unauthorized');
   }
 
   item.status = 'accepted';
   await item.save();
+
+  // Notify recipient
+  if (item.requestedBy) {
+    await Notification.create({
+      user: item.requestedBy,
+      message: `Your request for "${item.title}" has been accepted!`
+    });
+  }
+
   res.redirect('/received-requests');
 });
+
 
 // Reject request
 router.post('/reject/:id', requireLogin, async (req, res) => {
@@ -150,9 +159,10 @@ router.get('/admin/dashboard', adminOnly, async (req, res) => {
   const users = await User.find({}); // Show all users
   const items = await Item.find({}); // Show all items
 
+  const flaggedItems = await Item.find({ flagCount: { $gt: 0 } }).populate('donor');
 
+  res.render('pages/admin-dashboard', { users, items, flaggedItems, user: null });
 
-  res.render('pages/admin-dashboard', { users, items });
 });
 
 
@@ -223,6 +233,34 @@ router.post('/donate/delete/:id', requireLogin, async (req, res) => {
   res.redirect('/my-donations');
 });
 
+
+// report as flag
+router.post('/flag/:id', requireLogin, async (req, res) => {
+  const item = await Item.findById(req.params.id);
+
+  if (!item) return res.send('Item not found');
+
+  // prevent double flagging
+  const alreadyFlagged = item.flaggedBy.includes(req.session.user._id);
+  if (alreadyFlagged) return res.send('You already flagged this item.');
+
+  item.flagCount += 1;
+  item.flaggedBy.push(req.session.user._id);
+  await item.save();
+
+  res.redirect('/browse');
+});
+
+// get notification to notification page
+router.get('/notifications', requireLogin, async (req, res) => {
+  const notes = await Notification.find({ user: req.session.user._id }).sort({ createdAt: -1 });
+  res.render('pages/notifications', { notes });
+});
+
+router.post('/notifications/mark-read/:id', requireLogin, async (req, res) => {
+  await Notification.findByIdAndUpdate(req.params.id, { read: true });
+  res.redirect('/notifications');
+});
 
 
 
