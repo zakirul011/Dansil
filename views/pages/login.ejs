@@ -1,0 +1,28 @@
+<%- include('../partials/header') %>
+
+  <section class="login-page page-style text-center">
+    <div class="login">
+      <h1>Welcome Back!</h1>
+      <h4>Login to continue</h4>
+      <form method="POST" action="/login">
+        
+        <div class="input-wrapper">
+          <label>Email:</label>
+          <input type="email" name="email" placeholder="Email" required />
+        </div>
+
+        <div class="input-wrapper">
+          <label>Password:</label>
+          <input type="password" name="password" placeholder="Password" required />
+        </div>
+        
+        <button class="button-style" type="submit">Login</button>
+      </form>
+      <div class="form-bottom">
+        <h4>Don't you have an account?</h4>
+        <a class="button-style" href="/register">Sign up</a>
+      </div>
+    </div>
+  </section>
+
+<%- include('../partials/footer') %>

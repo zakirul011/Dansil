@@ -1,0 +1,35 @@
+<%- include('../partials/header') %>
+<section class="my-requests cards">  
+
+  <div class="container">
+    <div class="text-center">
+
+      <h2>My Requested Items</h2>
+
+      <% if (items.length === 0) { %>
+        <p>You haven’t requested any items yet.</p>
+      <% } %>
+    </div>
+
+    <% items.forEach(item => { %>
+      <div class="outer">
+      <div class="inner">
+        <% if (item.image) { %>
+          <img src="/uploads/<%= item.image %>" alt="item">
+        <% } %>
+
+
+        <h3><%= item.title %></h3>
+        <p><%= item.description %></p>
+        <ul>
+          <li>Category: <%= item.category %></li>
+          <li>Status: <%= item.status %></li>
+          <li>Donor: <%= item.donor.name %></li>
+          <li>Contact: <%= item.donor.email %></li>
+        </ul>
+
+        
+    <% }) %>
+  </div>
+</section>
+<%- include('../partials/footer') %>

@@ -1,0 +1,46 @@
+<%- include('../partials/header') %>
+
+<div class="my-donations cards">
+  <div class="container">
+
+  <div class="text-center">
+    <h2>My Donations</h2>
+
+    <% if (items.length === 0) { %>
+      <p>You haven’t requested any items yet.</p>
+    <% } %>
+  </div>
+    
+
+  <% items.forEach(item => { %>
+    <div class="outer">
+      <div class="inner">
+        <% if (item.image) { %>
+          <img src="/uploads/<%= item.image %>" width="150">
+        <% } %>
+        <h3><%= item.title %></h3>
+        <ul>
+          <li><%= item.description %></li>
+          <li>Category: <%= item.category %></li>
+          <li>Status: <%= item.status %></li>
+        </ul>
+
+        <div class="text-center">
+          <form method="GET" action="/donate/edit/<%= item._id %>" style="display:inline;">
+            <button class="button-style">Edit</button>
+          </form>
+          <form method="POST" action="/donate/delete/<%= item._id %>" style="display:inline;" onsubmit="return confirm('Are you sure?');">
+            <button class="button-style" style="background-color: crimson;">Delete</button>
+          </form>
+        </div>
+
+
+      </div>
+    </div>
+  <% }) %>
+
+  </div>
+
+</div>
+
+<%- include('../partials/footer') %>

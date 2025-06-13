@@ -1,0 +1,271 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap");
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  margin: 0;
+}
+body * {
+  box-sizing: border-box;
+}
+ul {
+	padding-left: 2em;
+}
+.w-100{
+  width: 100% !important;
+}
+h1,h2,h3,h4,h5,h6{
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+select {
+	background: #107C6F;
+	color: #fff;
+	border: 0;
+	border-radius: 40px;
+	padding: 9px 10px;
+	box-sizing: border-box;
+	line-height: 1;
+	min-width: 200px;
+}
+
+.container{
+	width: 1170px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.row{
+	display: flex;
+	flex-wrap: wrap;
+}
+.col-6{
+	width: 50%;
+}
+.justify-content-center{
+	justify-content: center;
+}
+.d-flex{
+	display: flex;
+}
+.align-items-center{
+	align-items: center;
+}
+.g-5{
+	gap: 5px;
+}
+
+/* global */
+.button-style {
+	text-decoration: none;
+	background-color: #107C6F;
+	color: aliceblue;
+	border-radius: 20px;
+	padding: 8px 10px;
+	min-width: 100px;
+	text-align: center;
+	display: inline-block;
+	box-shadow: 0 5px 15px rgba(0,0,0,.1);
+	font-size: inherit;
+	cursor: pointer;
+	border: 0;
+	transition: .3s ease;
+}
+.button-style:hover {
+	background-color: #0d695f;
+	box-shadow: 0 5px 15px rgba(0,0,0,.2);
+}
+
+.page-style {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-size: cover;
+}
+
+/* header */
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+.logo {
+  display: flex;
+  align-items: center;
+}
+.logo img {
+  width: 70px;
+}
+.logo h2 {
+	color: #107C6F;
+	margin-bottom: 0;
+}
+/* home page */
+.home-container {
+	display: flex;
+	flex-wrap: wrap;
+	padding-top: 20px;
+}
+.cards img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.cards .outer {
+  width: 25%;
+  padding: 15px;
+}
+.cards .inner {
+	padding: 10px;
+	border: 1px solid #d3d3d3;
+	box-shadow: 0 5px 15px rgba(0,0,0,.1);
+}
+.cards .contact-button {
+  text-align: center;
+}
+.cards .inner p,
+.cards .inner h3 {
+  text-align: center;
+}
+.contact-button .button-style {
+  width: 80px;
+}
+.search-container {
+	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	margin-top: 30px;
+}
+.search-container button {
+  margin-top: 10px;
+}
+
+
+.banner img{
+  width: 100%;
+}
+
+.hero-content{
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.hero-content h1 {
+	margin-bottom: 30px;
+}
+.hero-content h1 span{
+  color: #999;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: normal;
+}
+.text-center{
+  text-align: center;
+}
+/* login page */
+.form-bottom {
+	margin-top: 20px;
+}
+.post-content,
+.signup,
+.login {
+	text-align: center;
+	display: inline-block;
+	padding: 30px;
+	border-radius: 15px;
+	width: 400px;
+	border: 1px solid #000;
+	box-shadow: 0 5px 15px rgba(0,0,0,.1);
+}
+
+/* signup page */
+.signup-page {
+  text-align: center;
+}
+.signup a {
+  text-decoration: none;
+}
+
+/* post apge */
+.input-wrapper {
+	text-align: left;
+	margin-bottom: 12px;
+}
+.input-wrapper textarea,
+.input-wrapper select, .input-wrapper input {
+	width: 100%;
+	padding: 10px;
+	font-family: inherit;
+	font-weight: bold;
+	border-radius: 10px;
+	border: 1px solid #000;
+	transition: .3s;
+	background: #fff;
+  font-size: 14px;
+}
+.input-wrapper select, .input-wrapper input {
+	height: 40px;
+	color: #000;
+}
+.input-wrapper label {
+	display: block;
+	margin-bottom: 8px;
+}
+.input-wrapper select:focus,
+.input-wrapper input:focus {
+	outline: none;
+  border-color: #107C6F;
+  box-shadow: 0 5px 15px rgba(0,0,0,.1);
+}
+
+/* error page */
+.error-page h1 {
+  font-size: 100px;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.error-page {
+  background-image: url(./img/error.jpg);
+  text-align: center;
+  padding: 220px 0;
+}
+.error-page a {
+  background-color: black;
+}
+
+/* form error */
+.error {
+	margin-top: 10px;
+	color: rgb(0, 0, 0);
+}
+.user-style {
+  background-color: lightgray;
+}
+.user-style .outer {
+  width: 20%;
+}
+.user-style .outer img {
+  height: 180px;
+}
+.user-style .inner {
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+}
+.user-style h4 {
+  margin-top: 0px;
+  text-align: center;
+  color: black;
+}
+.user-style h3 {
+  color: black;
+}
+
+footer {
+  text-align: center;
+  padding: 50px;
+  background: #107C6F;
+  color: white;
+}
+.my-donations,
+.my-requests,
+.recieved-requests{
+	min-height: 300px;
+}

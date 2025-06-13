@@ -1,0 +1,85 @@
+<%- include('../partials/header') %>
+
+
+<div class="hero-content text-center">
+
+    <% if (user) { %>
+      <h1>Hello, <%= user.name %>! <span>(<%= user.role %>)</span></h1>
+      
+    <% } else { %>
+    <% } %>
+
+
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <h3>
+        It's not how much we give, but how much love we put into giving
+      </h3>
+      <p>Thanking your donors is one of the most important steps to building stronger donor relationships. But it’s normal to be at a loss for words when the time comes!</p>
+    </div>
+  </div>
+
+
+    
+<a class="button-style" href="/donate">Donate</a>
+<a class="button-style" href="/browse">Browse Donations</a>
+
+
+<% if (user && user.role === 'recipient') { %>
+  <a class="button-style" href="/my-requests">My Requests</a>
+<% } %>
+
+
+<% if (user && user.role === 'donor') { %>
+  <a class="button-style" href="/my-donations">My Donations</a>
+  <a class="button-style" href="/received-requests">Received Requests</a>
+<% } %>
+
+<% if (user && user.role === 'admin') { %>
+  <a class="button-style" href="/admin/dashboard">Admin Dashboard</a>
+<% } %>
+
+
+</div>
+
+
+<section class="banner">
+  <img src="img/banner.png" alt="">
+</section>
+
+
+    <!-- <div class="search-container">
+      <form action="">
+        <div class="input-wrapper">
+             <input type="text" placeholder="Search here...">
+        </div>
+        <button class="button-style" type="submit">Search</button>
+        <p class="error"> Search result: 1</p>
+      </form>
+    </div> -->
+
+    <!-- <section class="home-container page-style">
+
+      <div class="outer">
+        <div class="inner">
+          <img src="img/img.jpg" alt="" />
+          <div>
+            <h3>Shirt for donate</h3>
+            <ul>
+              <li>Ranibazar, Rajshahi</li>
+              <li>Phone: 01782943284</li>
+            </ul>
+
+            <div class="contact-button">
+              <a class="button-style" href="tel:01782943284">Call</a>
+              <a class="button-style" href="mailto:zakirul011@gmail.com">Email</a>
+              <button class="button-style" >Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section> -->
+
+    
+<%- include('../partials/footer') %>

@@ -1,0 +1,60 @@
+<%- include('../partials/header') %>
+
+<div class="admin-dashboard">
+  <div class="container">
+    <div class="text-center">      
+      <h2>Admin Dashboard</h2>
+
+    </div>
+    
+    <h3 class="text-center" style="margin-top: 50px;">Users</h3>
+    <% users.forEach(user => { %>
+      <div style="margin:10px 0; border:1px solid #ccc; padding:10px;">
+        <p><strong>Name:</strong> <%= user.name %></p>
+        <p><strong>Email:</strong> <%= user.email %></p>
+        <p><strong>Role:</strong> <%= user.role %></p>
+        <p><strong>Status:</strong> 
+          <%= user.isApproved ? 'Approved ✅' : 'Pending ⏳' %>
+        </p>
+
+        <% if (!user.isApproved) { %>
+          <form action="/admin/user/approve/<%= user._id %>" method="POST" style="display:inline;">
+            <button type="submit" class="button-style">Approve</button>
+          </form>
+          <form action="/admin/user/reject/<%= user._id %>" method="POST" style="display:inline;">
+            <button type="submit" class="button-style">Reject</button>
+          </form>
+        <% } %>
+      </div>
+    <% }) %>
+
+
+    <h3 class="text-center" style="margin-top: 50px;">Donation Items</h3>
+    <% items.forEach(item => { %>
+      <div style="margin:10px 0; border:1px solid #ccc; padding:10px;">
+        <p><strong>Title:</strong> <%= item.title %></p>
+        <p><strong>Status:</strong> <%= item.status %></p>
+        <p><strong>Approved:</strong> 
+          <%= item.isApproved ? '✅ Yes' : '⏳ No' %>
+        </p>
+
+        <% if (!item.isApproved) { %>
+          <form action="/admin/item/approve/<%= item._id %>" method="POST" style="display:inline;">
+            <button type="submit" class="button-style">Approve</button>
+          </form>
+          <form action="/admin/item/reject/<%= item._id %>" method="POST" style="display:inline;">
+            <button type="submit" class="button-style">Reject</button>
+          </form>
+        <% } %>
+      </div>
+    <% }) %>
+
+  </div>
+</div>
+
+
+
+
+
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,40 @@
+<%- include('../partials/header') %>
+
+
+    <section class="post-page page-style text-center">
+      <div class="post-content">
+        <h1>Post a Donation</h1>
+        <form action="/donate" method="POST" enctype="multipart/form-data">
+          
+          <div class="input-wrapper">
+            <label>Title:</label>
+             <input type="text" name="title" placeholder="Item title" required /><br>
+          </div>
+
+          <div class="input-wrapper">
+            <label>Description:</label>
+            <textarea name="description" placeholder="Description"></textarea><br>
+          </div>
+
+          <div class="input-wrapper">
+            <label>Category:</label>
+              <input type="text" name="category" placeholder="Category" /><br>
+          </div>
+
+          <div class="input-wrapper">
+            <label>Location:</label>
+              <input type="text" name="location" placeholder="Location" /><br>
+          </div>
+
+          <div class="input-wrapper">
+            <label>Image:</label>
+            <input type="file" name="image" /><br>
+          </div>
+
+          <button class="button-style" type="submit">Donate</button>
+          
+        </form>
+      </div>
+    </section>
+
+<%- include('../partials/footer') %>

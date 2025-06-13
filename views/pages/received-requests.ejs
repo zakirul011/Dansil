@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+
+<section class="recieved-requests cards">  
+
+  <div class="container">
+    <div class="text-center">
+      <h2>Received Requests</h2>
+
+      <% if (items.length === 0) { %>
+        <p>No requests received yet.</p>
+      <% } %>
+    </div>
+
+    <% items.forEach(item => { %>
+      <div class="outer">
+        <div class="inner">
+          <% if (item.image) { %>
+            <img src="/uploads/<%= item.image %>" width="150">
+          <% } %>
+          <h3><%= item.title %></h3>
+          <ul>
+            <li>Description: <%= item.description %></li>
+            <li>Category: <%= item.category %></li>
+            <li>Status: <%= item.status %></li>
+          <li><strong>Requested by:</strong> <%= item.requestedBy.name %> (<%= item.requestedBy.email %>)</li>
+          </ul>
+
+          <div class="text-center">
+          <form method="POST" action="/accept/<%= item._id %>" style="display:inline;">
+            <button type="submit" class="button-style">Accept</button>
+          </form>
+          <form method="POST" action="/reject/<%= item._id %>" style="display:inline;">
+            <button type="submit" class="button-style">Reject</button>
+          </form>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

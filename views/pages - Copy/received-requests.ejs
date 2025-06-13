@@ -1,0 +1,30 @@
+<%- include('../partials/header') %>
+
+<h2>Received Requests</h2>
+
+<% if (items.length === 0) { %>
+  <p>No requests received yet.</p>
+<% } %>
+
+<% items.forEach(item => { %>
+  <div style="border:1px solid #ccc; padding:10px; margin:10px 0;">
+    <% if (item.image) { %>
+      <img src="/uploads/<%= item.image %>" width="150">
+    <% } %>
+    <h3><%= item.title %></h3>
+    <p>Description: <%= item.description %></p>
+    <p>Category: <%= item.category %></p>
+    <p>Status: <%= item.status %></p>
+
+    <p><strong>Requested by:</strong> <%= item.requestedBy.name %> (<%= item.requestedBy.email %>)</p>
+
+    <form method="POST" action="/accept/<%= item._id %>" style="display:inline;">
+      <button type="submit">Accept</button>
+    </form>
+    <form method="POST" action="/reject/<%= item._id %>" style="display:inline;">
+      <button type="submit">Reject</button>
+    </form>
+  </div>
+<% }) %>
+
+<%- include('../partials/footer') %>
