@@ -95,8 +95,8 @@ select {
 header {
 	display: flex;
 	align-items: center;
-	margin-bottom: 25px;
 	justify-content: space-around;
+	margin-bottom: 25px;
 }
 .logo {
   display: flex;

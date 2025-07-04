@@ -30,6 +30,16 @@ router.post('/donate', requireLogin, upload.single('image'), async (req, res) =>
     
 
     await newItem.save();
+
+    // Notify admin
+    const message = `${req.session.user.name} is posted and waiting for approval.`;
+    const admin = await User.findOne({role:"admin"})
+    
+    await Notification.create({
+      user: admin._id,
+      message
+    });
+
     res.redirect('/my-donations');
   } catch (err) {
     res.status(500).send('Error posting item');
@@ -153,7 +163,6 @@ router.post('/reject/:id', requireLogin, async (req, res) => {
 
 
 
-
 // Admin dashboard
 router.get('/admin/dashboard', adminOnly, async (req, res) => {
   const users = await User.find({}); // Show all users
@@ -161,10 +170,9 @@ router.get('/admin/dashboard', adminOnly, async (req, res) => {
 
   const flaggedItems = await Item.find({ flagCount: { $gt: 0 } }).populate('donor');
 
-  res.render('pages/admin-dashboard', { users, items, flaggedItems, user: null });
+  res.render('pages/admin-dashboard', { users, items, flaggedItems });
 
 });
-
 
 
 // Approve user

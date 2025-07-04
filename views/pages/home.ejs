@@ -7,30 +7,23 @@
       <h1>Hello, <%= user.name %>! <span>(<%= user.role %>)</span></h1>
       
     <% } else { %>
+      <h1 style="margin-bottom: 5px;">Please Login or Register</h1>
+      <h3>for donation or receive doncation</h3>
     <% } %>
 
 
-  <div class="row justify-content-center">
-    <div class="col-6">
-      <h3>
-        It's not how much we give, but how much love we put into giving
-      </h3>
-      <p>Thanking your donors is one of the most important steps to building stronger donor relationships. But it’s normal to be at a loss for words when the time comes!</p>
-    </div>
-  </div>
 
-
-    
-<a class="button-style" href="/donate">Donate</a>
-<a class="button-style" href="/browse">Browse Donations</a>
-
+<% if (user) { %>
+  <a class="button-style" href="/browse">Browse Donations</a>
+<% } %>
 
 <% if (user && user.role === 'recipient') { %>
   <a class="button-style" href="/my-requests">My Requests</a>
 <% } %>
 
 
-<% if (user && (user.role === 'donor' || user.role === 'admin')) { %>
+<% if (user && (user.role === 'donor')) { %>
+  <a class="button-style" href="/donate">Donate</a>
   <a class="button-style" href="/my-donations">My Donations</a>
   <a class="button-style" href="/received-requests">Received Requests</a>
 <% } %>
@@ -39,6 +32,14 @@
   <a class="button-style" href="/admin/dashboard">Admin Dashboard</a>
 <% } %>
 
+  <!-- <div class="row justify-content-center" style="margin-top: 30px;">
+    <div class="col-6">
+      <h3>
+        It's not how much we give, but how much love we put into giving
+      </h3>
+      <p>Thanking your donors is one of the most important steps to building stronger donor relationships. But it’s normal to be at a loss for words when the time comes!</p>
+    </div>
+  </div> -->
 
 </div>
 

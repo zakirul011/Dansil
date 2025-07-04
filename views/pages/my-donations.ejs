@@ -32,8 +32,11 @@
             <% } else if (item.status === 'accepted') { %>
               <span style="color:blue;">Accepted</span>
             <% } %>
-          </>
+            </li>
         </ul>
+            <% if(!item.isApproved) {%>
+              <p style="color: crimson;">Waiting for admin to approve</p>
+            <% }%>
         <% if (item.requestedBy) { %>
           <p><strong>Requested By:</strong> <%= item.requestedBy.name %> (<%= item.requestedBy.email %>)</p>
         <% } %>

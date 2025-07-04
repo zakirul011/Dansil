@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dansil | Donate your unused things</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+
+    <header>
+      <div class="logo">
+        <img src="./img/logo.png" alt="" />
+        <h2>Dansil</h2>
+      </div>
+      <div>
+        <a class="button-style" href="./home.html">Home</a>
+
+        
+          
+          <a class="button-style" href="./notifications.html">notifications ()</a>
+          
+
+          <a href="./edit-profile.html" class="button-style">Edit Profile</a>
+          <a class="button-style" href="/logout">Logout</a>
+        
+          <a class="button-style" href="./register.html">Register</a> 
+          <a class="button-style" href="./login.html">Login</a>
+        
+
+
+      </div>
+    </header>
+
+
+    <section class="post-page page-style text-center">
+      <div class="post-content">
+        <h1>Post a Donation</h1>
+        <form action="/donate" method="POST" enctype="multipart/form-data">
+          
+          <div class="input-wrapper">
+            <label>Title:</label>
+             <input type="text" name="title" placeholder="Item title" required /><br>
+          </div>
+
+          <div class="input-wrapper">
+            <label>Description:</label>
+            <textarea name="description" placeholder="Description"></textarea><br>
+          </div>
+
+          <div class="input-wrapper">
+            <label>Category:</label>
+            <select name="category">
+              <option value="">Select Category</option>
+              <option value="clothes">Clothes</option>
+              <option value="books">Books</option>
+              <option value="furniture">Furniture</option>
+              <option value="food">Food</option>
+            </select>
+          </div>
+
+          <div class="input-wrapper">
+            <label>Location:</label>
+              <input type="text" name="location" placeholder="Location" /><br>
+          </div>
+
+          <div class="input-wrapper">
+            <label>Image:</label>
+            <input type="file" name="image" /><br>
+          </div>
+
+          <button class="button-style" type="submit">Donate</button>
+          
+        </form>
+      </div>
+    </section>
+
+
+    <footer>
+      <h1>Contact Us for Donation</h1>
+      <p>Phone: 01782943284</p>
+      <p>Email: zakirul011@gmail.com</p>
+    </footer>
+
+  </body>
+</html>
+

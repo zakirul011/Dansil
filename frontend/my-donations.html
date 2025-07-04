@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dansil | Donate your unused things</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+
+    <header>
+      <div class="logo">
+        <img src="./img/logo.png" alt="" />
+        <h2>Dansil</h2>
+      </div>
+      <div>
+        <a class="button-style" href="./home.html">Home</a>
+
+        
+          
+          <a class="button-style" href="./notifications.html">notifications ()</a>
+          
+
+          <a href="./edit-profile.html" class="button-style">Edit Profile</a>
+          <a class="button-style" href="/logout">Logout</a>
+        
+          <a class="button-style" href="./register.html">Register</a> 
+          <a class="button-style" href="./login.html">Login</a>
+        
+
+
+      </div>
+    </header>
+
+<div class="my-donations cards">
+  <div class="container">
+
+  <div class="text-center">
+    <h2>My Donations</h2>
+
+    
+      <p>You haven’t requested any items yet.</p>
+    
+  </div>
+    
+<div class="cards">
+  
+  
+    <div class="outer">
+      <div class="inner">
+        
+          <img src="./upload/img.jpeg" width="150">
+        
+        <h3></h3>
+        <ul>
+          <li>Title</li>
+          <li>Category: </li>
+          <li>Location: </li>
+          <li><strong>Status:</strong> 
+            
+              <span style="color:green;">Available</span>
+            
+              <span style="color:orange;">Requested</span>
+            
+              <span style="color:blue;">Accepted</span>
+            
+          </>
+        </ul>
+        
+          <p><strong>Requested By:</strong>  ()</p>
+        
+
+        <div class="text-center">
+          <form method="GET" action="/donate/edit/" style="display:inline;">
+            <button class="button-style">Edit</button>
+          </form>
+          <form method="POST" action="/donate/delete/" style="display:inline;" onsubmit="return confirm('Are you sure?');">
+            <button class="button-style" style="background-color: crimson;">Delete</button>
+          </form>
+        </div>
+
+
+      </div>
+    </div>
+  
+
+</div>
+
+  </div>
+
+</div>
+
+
+    <footer>
+      <h1>Contact Us for Donation</h1>
+      <p>Phone: 01782943284</p>
+      <p>Email: zakirul011@gmail.com</p>
+    </footer>
+
+  </body>
+</html>
+

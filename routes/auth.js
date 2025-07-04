@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const Notification = require('../models/Notification')
 
 // Register form
-router.get('/register', (req, res) => {
+router.get('/register',  (req, res) => { 
   res.render('pages/register');
 });
 
@@ -16,9 +17,22 @@ router.post('/register', async (req, res) => {
 
     const user = new User({ name, email, password, city, role });
     await user.save();
-    req.session.user = user;
-    res.redirect('/');
+    
+    // Notify admin
+    const message = `${user.name} is registered and waiting for approval.`;
+    const admin = await User.findOne({role:"admin"})
+    
+    await Notification.create({
+      user: admin._id,
+      message
+    });
+
+    res.redirect('/login');
+      
+    
   } catch (err) {
+    console.log(err);
+    
     res.status(500).send('Error registering user');
   }
 });
@@ -35,7 +49,8 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ email });
     
     if (!user.isApproved) {
-      return res.send('Account pending admin approval.');
+      res.render("pages/pending")
+      // return res.send('Account pending admin approval.');
     }
 
     if (!user || !(await user.matchPassword(password))) {
