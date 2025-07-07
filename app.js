@@ -3,7 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const methodOverride = require('method-override');
 const path = require('path');
 
 const app = express();
@@ -11,7 +10,7 @@ const app = express();
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(methodOverride('_method'));
+app.use('/uploads', express.static('uploads'));
 
 app.set('view engine', 'ejs');
 
@@ -22,7 +21,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Session Setup
 app.use(session({
-  secret: 'donation_secret_key',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
@@ -56,27 +55,19 @@ app.use(async (req, res, next) => {
 });
 
 
-
-
 // Routes
 const authRoutes = require('./routes/auth');
 app.use('/', authRoutes);
 
-// Home route
-app.get('/', (req, res) => {
-  console.log(req.session.user);
-  
-  res.render('pages/home', { user: req.session.user });
-});
 
 const itemRoutes = require('./routes/item');
 app.use('/', itemRoutes);
 
-// Make /uploads public
-app.use('/uploads', express.static('uploads'));
 
-
-
+// Home route
+app.get('/', (req, res) => {
+  res.render('pages/home', { user: req.session.user });
+});
 
 
 // Server

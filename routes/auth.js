@@ -30,9 +30,7 @@ router.post('/register', async (req, res) => {
     res.redirect('/login');
       
     
-  } catch (err) {
-    console.log(err);
-    
+  } catch (err) {    
     res.status(500).send('Error registering user');
   }
 });
@@ -50,7 +48,6 @@ router.post('/login', async (req, res) => {
     
     if (!user.isApproved) {
       res.render("pages/pending")
-      // return res.send('Account pending admin approval.');
     }
 
     if (!user || !(await user.matchPassword(password))) {

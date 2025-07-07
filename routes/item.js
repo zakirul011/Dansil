@@ -57,7 +57,6 @@ router.get('/my-donations', requireLogin, async (req, res) => {
 });
 
 
-
 // Browse all available items
 router.get('/browse', async (req, res) => {
   const { category, keyword, location } = req.query;
@@ -75,7 +74,6 @@ router.get('/browse', async (req, res) => {
   const items = await Item.find(filter).populate('donor');
   res.render('pages/browse', { items });
 });
-
 
 
 // Request item
@@ -160,7 +158,6 @@ router.post('/reject/:id', requireLogin, async (req, res) => {
   await item.save();
   res.redirect('/received-requests');
 });
-
 
 
 // Admin dashboard

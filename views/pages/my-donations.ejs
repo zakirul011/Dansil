@@ -34,9 +34,11 @@
             <% } %>
             </li>
         </ul>
-            <% if(!item.isApproved) {%>
-              <p style="color: crimson;">Waiting for admin to approve</p>
-            <% }%>
+              <p style="color: crimson;"> .
+                <% if(!item.isApproved) {%>
+                  Waiting for admin to approve
+                <% }%>
+              </p>
         <% if (item.requestedBy) { %>
           <p><strong>Requested By:</strong> <%= item.requestedBy.name %> (<%= item.requestedBy.email %>)</p>
         <% } %>
